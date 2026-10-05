@@ -33,6 +33,10 @@ body {
   box-shadow: 0 0.75rem 2rem rgb(47 35 83 / 8%);
 }
 
+.tarjeta {
+  margin-top: 1rem;
+}
+
 .marca {
   margin: 0;
   color: #6d4acb;
@@ -50,4 +54,52 @@ h2 {
 #saludo {
   min-height: 1.5em;
   margin-bottom: 0;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(10rem, 1.5fr);
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+select,
+button {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #b9afd8;
+  border-radius: 0.5rem;
+  color: inherit;
+  background: #fff;
+  font: inherit;
+}
+
+body.tema-oscuro {
+  color: #f5f1ff;
+  background: #171525;
+  color-scheme: dark;
+}
+
+body.tema-oscuro .encabezado,
+body.tema-oscuro .tarjeta {
+  border-color: #3d3658;
+  background: #242139;
+}
+
+body.tema-oscuro select,
+body.tema-oscuro button {
+  border-color: #5d537b;
+  background: #302b48;
+}
+
+@media (max-width: 480px) {
+  .encabezado,
+  .tarjeta {
+    padding: 1.25rem;
+  }
+
+  .campos {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
 }

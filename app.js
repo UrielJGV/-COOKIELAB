@@ -17,18 +17,59 @@ function leerCookie(nombre) {
 }
 
 let nombre = leerCookie("usuario");
+const primeraVisita = !nombre;
 
-if (!nombre) {
+if (primeraVisita) {
   const respuesta = prompt("¡Hola! ¿Cómo te llamas?");
 
   if (respuesta && respuesta.trim()) {
     nombre = respuesta.trim();
     guardarCookie("usuario", nombre);
     alert(`¡Bienvenido/a, ${nombre}!`);
-    document.querySelector("#saludo").textContent = `¡Hola, ${nombre}!`;
-  } else {
-    document.querySelector("#saludo").textContent = "¡Hola! Bienvenido/a a CookieLab.";
   }
-} else {
-  document.querySelector("#saludo").textContent = `Hola de nuevo, ${nombre}`;
 }
+
+const selectorTema = document.querySelector("#tema");
+const selectorIdioma = document.querySelector("#idioma");
+const temaGuardado = leerCookie("tema");
+const idiomaGuardado = leerCookie("idioma");
+
+if (temaGuardado === "oscuro" || temaGuardado === "claro") {
+  selectorTema.value = temaGuardado;
+}
+if (idiomaGuardado === "en" || idiomaGuardado === "es") {
+  selectorIdioma.value = idiomaGuardado;
+}
+
+function aplicarTema() {
+  document.body.classList.toggle("tema-oscuro", selectorTema.value === "oscuro");
+}
+
+function mostrarSaludo() {
+  const ingles = selectorIdioma.value === "en";
+
+  if (nombre) {
+    document.querySelector("#saludo").textContent = ingles
+      ? `Welcome back, ${nombre}`
+      : primeraVisita
+        ? `¡Hola, ${nombre}!`
+        : `Hola de nuevo, ${nombre}`;
+  } else {
+    document.querySelector("#saludo").textContent = ingles
+      ? "Welcome to CookieLab!"
+      : "¡Hola! Bienvenido/a a CookieLab.";
+  }
+}
+
+selectorTema.addEventListener("change", () => {
+  guardarCookie("tema", selectorTema.value);
+  aplicarTema();
+});
+
+selectorIdioma.addEventListener("change", () => {
+  guardarCookie("idioma", selectorIdioma.value);
+  mostrarSaludo();
+});
+
+aplicarTema();
+mostrarSaludo();
