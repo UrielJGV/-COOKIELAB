@@ -61,6 +61,19 @@ function mostrarSaludo() {
   }
 }
 
+const visitasPrevias = Number(leerCookie("visitas"));
+const visitas = Number.isSafeInteger(visitasPrevias) && visitasPrevias > 0
+  ? visitasPrevias + 1
+  : 1;
+guardarCookie("visitas", visitas);
+
+function mostrarVisitas() {
+  document.querySelector("#contador-visitas").textContent =
+    selectorIdioma.value === "en"
+      ? `You have visited this page ${visitas} time${visitas === 1 ? "" : "s"}.`
+      : `Has visitado esta página ${visitas} ${visitas === 1 ? "vez" : "veces"}.`;
+}
+
 selectorTema.addEventListener("change", () => {
   guardarCookie("tema", selectorTema.value);
   aplicarTema();
@@ -69,7 +82,9 @@ selectorTema.addEventListener("change", () => {
 selectorIdioma.addEventListener("change", () => {
   guardarCookie("idioma", selectorIdioma.value);
   mostrarSaludo();
+  mostrarVisitas();
 });
 
 aplicarTema();
 mostrarSaludo();
+mostrarVisitas();
