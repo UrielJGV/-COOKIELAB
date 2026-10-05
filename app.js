@@ -16,13 +16,19 @@ function leerCookie(nombre) {
   return cookie ? decodeURIComponent(cookie.slice(prefijo.length)) : null;
 }
 
-const nombre = prompt("¡Hola! ¿Cómo te llamas?");
+let nombre = leerCookie("usuario");
 
-if (nombre && nombre.trim()) {
-  const nombreGuardado = nombre.trim();
-  guardarCookie("usuario", nombreGuardado);
-  alert(`¡Bienvenido/a, ${nombreGuardado}!`);
-  document.querySelector("#saludo").textContent = `¡Hola, ${nombreGuardado}!`;
+if (!nombre) {
+  const respuesta = prompt("¡Hola! ¿Cómo te llamas?");
+
+  if (respuesta && respuesta.trim()) {
+    nombre = respuesta.trim();
+    guardarCookie("usuario", nombre);
+    alert(`¡Bienvenido/a, ${nombre}!`);
+    document.querySelector("#saludo").textContent = `¡Hola, ${nombre}!`;
+  } else {
+    document.querySelector("#saludo").textContent = "¡Hola! Bienvenido/a a CookieLab.";
+  }
 } else {
-  document.querySelector("#saludo").textContent = "¡Hola! Bienvenido/a a CookieLab.";
+  document.querySelector("#saludo").textContent = `Hola de nuevo, ${nombre}`;
 }
