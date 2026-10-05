@@ -63,6 +63,12 @@ h2 {
   gap: 0.75rem 1rem;
 }
 
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 select,
 button {
   min-height: 2.75rem;
@@ -72,6 +78,20 @@ button {
   color: inherit;
   background: #fff;
   font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #6d4acb;
+}
+
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid #9a7be8;
+  outline-offset: 2px;
 }
 
 body.tema-oscuro {
